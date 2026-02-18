@@ -1,26 +1,396 @@
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=IM+Fell+English:ital@0;1&display=swap");
 @import "tailwindcss";
 
+/* ─── AoE2 Design Tokens ─────────────────────────────────────── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --aoe-bg:        #0d0a06;
+  --aoe-panel:     #1e1508;
+  --aoe-border:    #5a3e1b;
+  --aoe-border-hi: #8b6914;
+  --aoe-parchment: #c8a96e;
+  --aoe-gold:      #f0c040;
+  --aoe-red:       #8b1a1a;
+  --aoe-stone:     #3a2e1e;
+  --aoe-green:     #2a4a1a;
+  --aoe-dim:       #1a1208;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* ─── Base ───────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background: var(--aoe-bg);
+  color: var(--aoe-parchment);
+  font-family: "IM Fell English", Georgia, serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ─── Typography ─────────────────────────────────────────────── */
+h1, h2, h3, .heading {
+  font-family: "Cinzel", "Times New Roman", serif;
+  color: var(--aoe-gold);
+  text-shadow: 1px 1px 3px #000, 0 0 8px rgba(240,192,64,0.3);
+  letter-spacing: 0.05em;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ─── Panel ──────────────────────────────────────────────────── */
+.aoe-panel {
+  background: linear-gradient(145deg, #2a1e0e, #1a1008);
+  border: 2px solid var(--aoe-border);
+  box-shadow: inset 0 0 8px rgba(0,0,0,0.8), 0 0 4px var(--aoe-border-hi);
+  border-radius: 2px;
+}
+
+.aoe-panel-title {
+  font-family: "Cinzel", serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--aoe-gold);
+  text-shadow: 1px 1px 2px #000;
+  padding: 0.4rem 0.75rem;
+  border-bottom: 1px solid var(--aoe-border);
+  background: linear-gradient(90deg, rgba(90,62,27,0.4), transparent);
+}
+
+/* ─── Button ─────────────────────────────────────────────────── */
+.aoe-btn {
+  background: linear-gradient(180deg, #7a5c2a, #4a3218);
+  border: 2px solid var(--aoe-border-hi);
+  color: var(--aoe-gold);
+  font-family: "Cinzel", serif;
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-shadow: 1px 1px 2px #000;
+  padding: 0.5rem 1.25rem;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: all 0.15s;
+}
+
+.aoe-btn:hover {
+  background: linear-gradient(180deg, #9a7c3a, #5a3e22);
+  box-shadow: 0 0 6px rgba(240,192,64,0.4);
+}
+
+.aoe-btn:active {
+  transform: translateY(1px);
+}
+
+.aoe-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.aoe-btn-danger {
+  border-color: #8b1a1a;
+  background: linear-gradient(180deg, #6a1212, #3a0808);
+}
+
+/* ─── Input ──────────────────────────────────────────────────── */
+.aoe-input {
+  background: rgba(0,0,0,0.6);
+  border: 1px solid var(--aoe-border);
+  color: var(--aoe-parchment);
+  font-family: "IM Fell English", serif;
+  padding: 0.4rem 0.6rem;
+  border-radius: 2px;
+  width: 100%;
+  font-size: 0.875rem;
+}
+
+.aoe-input:focus {
+  outline: none;
+  border-color: var(--aoe-border-hi);
+  box-shadow: 0 0 4px rgba(139,105,20,0.5);
+}
+
+.aoe-input::placeholder {
+  color: rgba(200,169,110,0.4);
+}
+
+.aoe-select {
+  background: rgba(0,0,0,0.6);
+  border: 1px solid var(--aoe-border);
+  color: var(--aoe-parchment);
+  font-family: "IM Fell English", serif;
+  padding: 0.4rem 0.6rem;
+  border-radius: 2px;
+  width: 100%;
+  font-size: 0.875rem;
+  appearance: none;
+  cursor: pointer;
+}
+
+.aoe-select:focus {
+  outline: none;
+  border-color: var(--aoe-border-hi);
+}
+
+/* ─── Label ──────────────────────────────────────────────────── */
+.aoe-label {
+  font-family: "Cinzel", serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--aoe-parchment);
+  opacity: 0.8;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+/* ─── Zone cells ─────────────────────────────────────────────── */
+.zone-cell {
+  border: 1px solid var(--aoe-border);
+  background: linear-gradient(135deg, #1a1208, #0d0a06);
+  border-radius: 2px;
+  padding: 0.5rem;
+  min-height: 80px;
+  position: relative;
+  font-size: 0.7rem;
+}
+
+.zone-cell-own {
+  border-color: #4a7a2a;
+  background: linear-gradient(135deg, #1a2a0e, #0d1208);
+  box-shadow: inset 0 0 4px rgba(74,122,42,0.2);
+}
+
+.zone-cell-contested {
+  border-color: #7a1a1a;
+  background: linear-gradient(135deg, #2a0e0e, #1a0808);
+  box-shadow: inset 0 0 4px rgba(122,26,26,0.2);
+}
+
+.zone-cell-enemy {
+  border-color: #5a1a1a;
+  background: linear-gradient(135deg, #1a0e0e, #0d0808);
+  opacity: 0.85;
+}
+
+.zone-name {
+  font-family: "Cinzel", serif;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--aoe-parchment);
+  opacity: 0.7;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+
+/* ─── Resource bar ───────────────────────────────────────────── */
+.resource-row {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  padding: 0.3rem 0.5rem;
+  background: rgba(0,0,0,0.3);
+  border: 1px solid var(--aoe-border);
+  border-radius: 2px;
+}
+
+.resource-icon {
+  font-size: 0.8rem;
+  width: 1.2rem;
+  text-align: center;
+}
+
+.resource-val {
+  font-family: "Cinzel", serif;
+  font-size: 0.75rem;
+  color: var(--aoe-gold);
+  font-weight: 700;
+  min-width: 2.5rem;
+}
+
+/* ─── HP bars ────────────────────────────────────────────────── */
+.hp-bar-bg {
+  width: 100%;
+  height: 6px;
+  background: rgba(0,0,0,0.5);
+  border-radius: 2px;
+  overflow: hidden;
+  border: 1px solid var(--aoe-border);
+}
+
+.hp-bar-fill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.4s ease;
+}
+
+/* ─── Event log ──────────────────────────────────────────────── */
+.event-log {
+  font-size: 0.7rem;
+  line-height: 1.5;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--aoe-border) transparent;
+}
+
+.event-log-line {
+  padding: 0.1rem 0;
+  border-bottom: 1px solid rgba(90,62,27,0.2);
+  opacity: 0.9;
+}
+
+.event-log-line:last-child { opacity: 1; font-weight: bold; }
+
+/* ─── Turn counter badge ─────────────────────────────────────── */
+.turn-badge {
+  font-family: "Cinzel", serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--aoe-gold);
+  background: linear-gradient(90deg, rgba(90,62,27,0.6), transparent);
+  padding: 0.25rem 0.75rem;
+  border-radius: 2px;
+  border: 1px solid var(--aoe-border);
+  text-shadow: 0 0 4px rgba(240,192,64,0.4);
+}
+
+/* ─── Scrollbar ──────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--aoe-border); border-radius: 3px; }
+
+/* ─── Winner banner ──────────────────────────────────────────── */
+.winner-banner {
+  background: linear-gradient(135deg, rgba(240,192,64,0.15), rgba(139,105,20,0.1));
+  border: 2px solid var(--aoe-gold);
+  box-shadow: 0 0 20px rgba(240,192,64,0.3), inset 0 0 20px rgba(0,0,0,0.5);
+  padding: 2rem 3rem;
+  text-align: center;
+  border-radius: 4px;
+}
+
+/* ─── Age badge ──────────────────────────────────────────────── */
+.age-badge {
+  font-family: "Cinzel", serif;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, #5a3e1b, #3a2e1e);
+  border: 1px solid var(--aoe-border-hi);
+  color: var(--aoe-gold);
+  padding: 0.1rem 0.4rem;
+  border-radius: 2px;
+}
+
+/* ─── Production queue ───────────────────────────────────────── */
+.queue-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.7rem;
+  padding: 0.2rem 0;
+  border-bottom: 1px solid rgba(90,62,27,0.2);
+}
+
+.queue-turns {
+  font-family: "Cinzel", serif;
+  font-size: 0.65rem;
+  color: var(--aoe-parchment);
+  opacity: 0.7;
+  margin-left: auto;
+}
+
+/* ─── Divider ────────────────────────────────────────────────── */
+.aoe-divider {
+  border: none;
+  border-top: 1px solid var(--aoe-border);
+  margin: 0.5rem 0;
+  opacity: 0.5;
+}
+
+/* ─── Tile map zone overlays ─────────────────────────────────── */
+.zone-overlay {
+  box-shadow: inset 0 0 0 1px rgba(200,169,110,0.15);
+}
+
+/* ─── Combat animations ──────────────────────────────────────── */
+@keyframes combat-pulse {
+  0%, 100% { box-shadow: inset 0 0 8px rgba(220,60,60,0.4), 0 0 8px rgba(220,60,60,0.5); }
+  50%       { box-shadow: inset 0 0 24px rgba(220,60,60,0.8), 0 0 16px rgba(220,60,60,0.8); }
+}
+
+@keyframes unit-bob {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-3px); }
+}
+
+.combat-pulse {
+  animation: combat-pulse 1.2s ease-in-out infinite;
+}
+
+.unit-bob {
+  animation: unit-bob 2s ease-in-out infinite;
+}
+
+/* ─── Sprite team colour indicators ─────────────────────────── */
+/* Sprites are opaque PNGs — team shown via border on wrapper div.
+   .sprite-a / .sprite-b kept for GhostSprite class references.  */
+.sprite-a { /* blue team — border set inline */ }
+.sprite-b { /* red team  — border set inline */ }
+
+/* ─── Lobby responsive grid ──────────────────────────────────── */
+.lobby-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+@media (max-width: 767px) {
+  .lobby-grid { grid-template-columns: 1fr; }
+}
+
+/* ─── Mobile tab bar ─────────────────────────────────────────── */
+.mobile-tabs {
+  display: flex;
+  flex-shrink: 0;
+  background: #110e07;
+  border-top: 1px solid var(--aoe-border);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  gap: 0.25rem;
+  padding: 0.4rem 0.5rem env(safe-area-inset-bottom, 0.4rem);
+}
+.mobile-tab {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  padding: 0.55rem 0.5rem;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(90,62,27,0.35);
+  border-radius: 10px;
+  cursor: pointer;
+  color: rgba(200, 169, 110, 0.45);
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+  -webkit-tap-highlight-color: transparent;
+}
+.mobile-tab.active {
+  background: rgba(240, 192, 64, 0.12);
+  border-color: rgba(240, 192, 64, 0.5);
+  color: var(--aoe-gold);
+}
+.mobile-tab-icon {
+  font-size: 1.35rem;
+  line-height: 1;
+}
+.mobile-tab-label {
+  font-family: "Cinzel", serif;
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  line-height: 1;
 }

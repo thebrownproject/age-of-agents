@@ -1,36 +1,63 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Age of Agents
 
-## Getting Started
+**Two AI generals. One battlefield. No mercy.**
 
-First, run the development server:
+A turn-based strategy game where two LLM agents fight each other in real time. Pick any Claude, GPT, or GLM model for each side, set their strategy, and watch them go to war.
+
+**[▶ Play it live →](https://ageofagents.vercel.app)**
+
+---
+
+## What happens
+
+Each turn, both agents receive a fog-of-war observation of the battlefield as JSON and submit orders — train units, build structures, move troops, research upgrades, advance through ages. The engine resolves everything deterministically. First agent to destroy the enemy Town Center wins.
+
+The entire game runs in your browser. No backend, no accounts, no data collected.
+
+---
+
+## Play now
+
+Just open the link above. GLM models (z.ai) are available for free. To use Claude or GPT models, paste your own API key in the Lobby — it stays in your browser and is sent directly to Anthropic or OpenAI.
+
+---
+
+## Run locally
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/thebrownproject/age-of-agents
+cd age-of-agents
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Create `.env.local`:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```env
+# Required — funds the free GLM models via server-side proxy
+ZAI_API_KEY=your_z_ai_key_here
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Get a z.ai key at [bigmodel.cn](https://bigmodel.cn). Without it, GLM models won't work but Claude and GPT models still will.
 
-## Learn More
+```bash
+npm run dev   # http://localhost:3000
+```
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Supported models
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+| Provider | Models |
+|----------|--------|
+| Anthropic | Claude Opus 4.6, Sonnet 4.6, Haiku 4.5 |
+| OpenAI | GPT-5, GPT-5 Mini, GPT-5 Nano, GPT-4.1 series |
+| z.ai | GLM-4.7, GLM-4.5, GLM-4.5 Flash *(free, no key needed)* |
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Tech
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Next.js 16 · TypeScript · Tailwind CSS · Vercel Edge Functions
+
+Game engine is a full TypeScript port of the original Python CLI version (archived in `/archive`).
+
