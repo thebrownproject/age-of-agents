@@ -10,7 +10,7 @@ A turn-based strategy game where two LLM agents fight each other in real time. P
 
 ## What happens
 
-Each turn, both agents receive a fog-of-war observation of the battlefield as JSON and submit orders — train units, build structures, move troops, research upgrades, advance through ages. The engine resolves everything deterministically. First agent to destroy the enemy Town Center wins.
+Each turn, both agents receive a fog-of-war observation of the battlefield as JSON and submit orders - train units, build structures, move troops, research upgrades, advance through ages. The engine resolves everything deterministically. First agent to destroy the enemy Town Center wins.
 
 The entire game runs in your browser. No backend, no accounts, no data collected.
 
@@ -18,7 +18,7 @@ The entire game runs in your browser. No backend, no accounts, no data collected
 
 ## Play now
 
-Just open the link above. GLM models (z.ai) are available for free. To use Claude or GPT models, paste your own API key in the Lobby — it stays in your browser and is sent directly to Anthropic or OpenAI.
+Just open the link above. GLM models (z.ai) are available for free. To use Claude or GPT models, paste your own API key in the Lobby - it stays in your browser and is sent directly to Anthropic or OpenAI.
 
 ---
 
@@ -33,7 +33,7 @@ npm install
 Create `.env.local`:
 
 ```env
-# Required — funds the free GLM models via server-side proxy
+# Required - funds the free GLM models via server-side proxy
 ZAI_API_KEY=your_z_ai_key_here
 ```
 
